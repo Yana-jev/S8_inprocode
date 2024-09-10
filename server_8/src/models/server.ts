@@ -2,6 +2,7 @@ import express, {Application, Request, Response} from 'express';
 import cors from 'cors'
 import routesProducto from '../routes/producto';
 import db from '../db/connection';
+import routesLocation from '../routes/'
 
 class Server {
 

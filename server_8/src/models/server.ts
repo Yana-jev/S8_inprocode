@@ -2,7 +2,7 @@ import express, {Application, Request, Response} from 'express';
 import cors from 'cors'
 import routesProducto from '../routes/producto';
 import db from '../db/connection';
-import routesLocation from '../routes/'
+import routesLocation from '../routes/location'
 
 class Server {
 
@@ -17,6 +17,7 @@ class Server {
       this.midlewares();
       this.routes();
       this.dbConnect();
+      this.app.use('/api/locations', routesLocation);
    }
 
 

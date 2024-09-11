@@ -13,17 +13,20 @@ export const getLocations = async (req: Request, res: Response) => {
    }
 };
 
-export const postLocation = async (req: Request, res: Response) =>{
-   const{ latitude, longitude, description} = req.body;
-   try{
-      const newLocation = await Location.create ({longitude, latitude, description});
-         res.json(newLocation);
-   } catch (error){
+export const postLocation = async (req: Request, res: Response) => {
+   const { latitude, longitude, description } = req.body;
+   try {
+      const newLocation = await Location.create({ longitude, latitude, description });
+      res.json(newLocation);
+   } catch (error) {
+      console.error('Error while adding location:', error); // Логируем ошибку в консоль
       res.status(500).json({
-         msg: 'Error of adding location', error
-      })
+         msg: 'Error of adding location',
+         error
+      });
    }
 };
+
 
 
 export const deleteLocation = async (req: Request, res: Response) =>{

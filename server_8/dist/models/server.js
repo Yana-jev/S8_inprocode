@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const producto_1 = __importDefault(require("../routes/producto"));
 const connection_1 = __importDefault(require("../db/connection"));
+const location_1 = __importDefault(require("../routes/location"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -24,6 +25,7 @@ class Server {
         this.midlewares();
         this.routes();
         this.dbConnect();
+        this.app.use('/api/locations', location_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

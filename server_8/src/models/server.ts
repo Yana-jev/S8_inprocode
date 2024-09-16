@@ -2,7 +2,9 @@ import express, {Application, Request, Response} from 'express';
 import cors from 'cors'
 import routesProducto from '../routes/producto';
 import db from '../db/connection';
-import routesLocation from '../routes/location'
+import routesLocation from '../routes/location';
+import calendarRoutes from '../routes/calendar';
+
 
 class Server {
 
@@ -18,6 +20,8 @@ class Server {
       this.routes();
       this.dbConnect();
       this.app.use('/api/locations', routesLocation);
+      this.app.use('/api/calendar', calendarRoutes)
+      
    }
 
 

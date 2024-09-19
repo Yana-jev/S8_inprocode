@@ -4,6 +4,7 @@ import routesProducto from '../routes/producto';
 import db from '../db/connection';
 import routesLocation from '../routes/location';
 import calendarRoutes from '../routes/calendar';
+import salesDataRoutes from '../routes/grafics';
 
 
 class Server {
@@ -20,7 +21,8 @@ class Server {
       this.routes();
       this.dbConnect();
       this.app.use('/api/locations', routesLocation);
-      this.app.use('/api/calendar', calendarRoutes)
+      this.app.use('/api/calendar', calendarRoutes);
+      this.app.use('/api/grafics', salesDataRoutes);
       
    }
 

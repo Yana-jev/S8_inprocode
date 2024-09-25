@@ -38,29 +38,29 @@ try {
 
 
 
-export const updateEvent = async (req: Request, res: Response)=> {
-   const{body} = req;
-   const {id} = req.params;
+export const updateEvent = async (req: Request, res: Response) => {
+   const { body } = req;
+   const { id } = req.params;
 
    try {
+      const event = await CalendarEvent.findByPk(id);
 
-      const product = await CalendarEvent.findByPk(id);
-   
-      if(product){
-         await product.update(body);
+      if (event) {
+         await event.update(body);
          res.json({
-            msg: `El evento fue actualizado con exito`
-         })
-   
-      }else {
+            msg: `Event updated successfully`,
+            event  // возвращаем обновленный объект
+         });
+      } else {
          res.status(404).json({
-         msg: `No existe un evento con el id ${id}`
-         })
+            msg: `No event found with id ${id}`
+         });
       }
-   } catch (error){
-      console.log(error);
-      res.json({
-      msg: `Upps osurrio un errror, comuniquese con soporte`
-      })
+   } catch (error) {
+      console.error(error);
+      res.status(500).json({
+         msg: `An error occurred, please contact support`,
+         error  // добавляем детализированную ошибку в ответ
+      });
    }
-}
+};

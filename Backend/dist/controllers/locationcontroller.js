@@ -33,7 +33,7 @@ const postLocation = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.json(newLocation);
     }
     catch (error) {
-        console.error('Error while adding location:', error); // Логируем ошибку в консоль
+        console.error('Error while adding location:', error);
         res.status(500).json({
             msg: 'Error of adding location',
             error

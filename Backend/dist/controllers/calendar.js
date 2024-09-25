@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteEvent = exports.getEvents = exports.createEvent = void 0;
+exports.updateEvent = exports.deleteEvent = exports.getEvents = exports.createEvent = void 0;
 const calendar_1 = __importDefault(require("../models/calendar"));
 const createEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, start, end } = req.body;
@@ -50,3 +50,30 @@ const deleteEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.deleteEvent = deleteEvent;
+const updateEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    const { id } = req.params;
+    try {
+        const event = yield calendar_1.default.findByPk(id);
+        if (event) {
+            yield event.update(body);
+            res.json({
+                msg: `Event updated successfully`,
+                event // возвращаем обновленный объект
+            });
+        }
+        else {
+            res.status(404).json({
+                msg: `No event found with id ${id}`
+            });
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({
+            msg: `An error occurred, please contact support`,
+            error // добавляем детализированную ошибку в ответ
+        });
+    }
+});
+exports.updateEvent = updateEvent;

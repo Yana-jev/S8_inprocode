@@ -28,8 +28,8 @@ class Server {
         this.routes();
         this.dbConnect();
         this.app.use('/api/locations', location_1.default);
-        this.app.use('/api/calendar', calendar_1.default);
         this.app.use('/api/grafics', grafics_1.default);
+        this.app.use('/api/calendar', calendar_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

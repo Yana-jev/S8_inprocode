@@ -23,8 +23,9 @@ export class CalendarService {
   }
 
 
-  updateEvent(id: string, eventData: any) {
-    return this.http.put(`/api/events/${id}`, eventData);
-}
+  updateEvent(eventId: string, updatedEventData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${eventId}`, updatedEventData);
+  }
+
 }
 

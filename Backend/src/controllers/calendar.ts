@@ -36,29 +36,31 @@ try {
 };
 
 
-export const updateEvent = async (req: Request, res: Response) => {
-const { id } = req.params; 
-const { title, start, end } = req.body; 
 
-try {
-      
-      const event = await CalendarEvent.findByPk(id);
-      if (!event) {
-         return res.status(404).json({ msg: 'Event not found' }); 
-      }
 
+export const updateEvent = async (req: Request, res: Response)=> {
+   const{body} = req;
+   const {id} = req.params;
+
+   try {
+
+      const product = await CalendarEvent.findByPk(id);
    
-      event.title = title;
-      event.start = start;
-      event.end = end;
-
-      
-      await event.save();
-
-      
-      res.json(event);
-} catch (error) {
-
-      res.status(500).json({ msg: 'Error updating event', error });
+      if(product){
+         await product.update(body);
+         res.json({
+            msg: `El evento fue actualizado con exito`
+         })
+   
+      }else {
+         res.status(404).json({
+         msg: `No existe un evento con el id ${id}`
+         })
+      }
+   } catch (error){
+      console.log(error);
+      res.json({
+      msg: `Upps osurrio un errror, comuniquese con soporte`
+      })
+   }
 }
-};

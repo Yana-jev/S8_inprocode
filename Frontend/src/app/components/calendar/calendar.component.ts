@@ -101,17 +101,19 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEventDrop(dropInfo: any) {
-    const eventId = dropInfo.event.id;
+    const eventId = dropInfo.event.id; // Проверьте, есть ли у события этот ID
     const updatedEventData = {
-      start: dropInfo.event.startStr,
-      end: dropInfo.event.endStr
+        title: dropInfo.event.title, // Возможно, вы захотите обновить и название
+        start: dropInfo.event.startStr,
+        end: dropInfo.event.endStr
     };
 
-    this.calendarService.updateEvent(eventId, updatedEventData).subscribe(() => {
-
+    this.calendarService.updateEvent(eventId, updatedEventData).subscribe((response) => {
+        console.log('Event updated successfully:', response); // Убедитесь, что вы получаете ответ
+    }, (error) => {
+        console.error('Error updating event:', error); // Обработка ошибок
     });
-  }
-
+}
 
   handleEventClick(clickInfo: any) {
     this.isModalOpen = true;
@@ -119,8 +121,8 @@ export class CalendarComponent implements OnInit {
     this.selectedStart = clickInfo.event.startStr;
     this.selectedEnd = clickInfo.event.endStr;
     this.eventColor = clickInfo.event.backgroundColor || '#3788d8';
-    this.eventToEdit = clickInfo.event; 
-  }
+    this.eventToEdit = clickInfo.event; // Убедитесь, что это событие имеет ID
+}
 
   deleteEvent() {
     if (this.eventToEdit) {

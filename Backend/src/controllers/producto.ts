@@ -83,7 +83,4 @@ export const updateProduct = async (req: Request, res: Response)=> {
       msg: `Upps osurrio un errror, comuniquese con soporte`
       })
    }
-
-
-
 }

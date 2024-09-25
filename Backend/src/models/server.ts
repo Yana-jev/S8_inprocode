@@ -21,8 +21,8 @@ class Server {
       this.routes();
       this.dbConnect();
       this.app.use('/api/locations', routesLocation);
-      this.app.use('/api/calendar', calendarRoutes);
       this.app.use('/api/grafics', salesDataRoutes);
+      this.app.use('/api/calendar', calendarRoutes);
       
    }
 

@@ -4,8 +4,8 @@ import { createEvent, getEvents, deleteEvent, updateEvent } from '../controllers
 const router = Router();
 
 router.post('/', createEvent);
-router.get('/', getEvents);
-router.delete('/:id', deleteEvent);
-router.put('/events/:id', updateEvent);
+router.get('/', getEvents); 
+router.delete('/:id', deleteEvent); 
+router.put('/:id', updateEvent);
 
 export default router;

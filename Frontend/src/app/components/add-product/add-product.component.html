@@ -20,9 +20,9 @@
                      <input formControlName = 'price' type="number" class="form-control mt-2" placeholder="ingrese precio">
                      @if(form.get('price')?.hasError('required') && form.get('price')?.touched){
                      <small>el campo price es requerido</small>}
-                     <input formControlName = 'stock' type="number" class="form-control mt-2" placeholder="ingrese stock">
+                     <input formControlName = 'stock' type="number" class="form-control mt-2" placeholder="maximo de personas">
                      @if(form.get('stock')?.hasError('required') && form.get('stock')?.touched){
-                     <small>el campo stock es requerido</small>}
+                     <small>maximo de personas es requerido</small>}
                      <div class="row mt-2 text-center">
                         <div class="col"><button routerLink ="/" type="button"  class="btn btn-secondary">Volver</button></div>
                         <div class="col"><button [disabled]="form.invalid" type="submit" class="btn btn-primary">Aceptar</button></div>

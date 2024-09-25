@@ -2,8 +2,6 @@ import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
 
-
-
 const CalendarEvent = db.define('CalendarEvent', {
 title: {
    type: DataTypes.STRING,

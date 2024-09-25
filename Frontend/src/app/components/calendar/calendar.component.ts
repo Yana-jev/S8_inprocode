@@ -47,7 +47,7 @@ export class CalendarComponent implements OnInit {
 
   loadEvents() {
     this.calendarService.getEvents().subscribe((events) => {
-      // Присваиваем полученные с сервера события календарю
+
       this.calendarOptions.events = events;
     });
   }
@@ -73,18 +73,17 @@ export class CalendarComponent implements OnInit {
     };
   
     if (this.eventToEdit) {
-      // Обновление существующего события на клиенте
+  
       this.eventToEdit.setProp('title', eventData.title);
       this.eventToEdit.setProp('backgroundColor', eventData.backgroundColor);
-  
-      // Обновление события на сервере
+
       this.calendarService.updateEvent(this.eventToEdit.id, eventData).subscribe(() => {
         console.log('Event updated successfully on the server');
       }, (error) => {
         console.error('Error updating event on the server:', error);
       });
     } else {
-      // Добавление нового события
+
       this.calendarService.addEvent(eventData).subscribe(() => {
         const newEvent = {
           title: eventData.title,
@@ -112,17 +111,17 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEventDrop(dropInfo: any) {
-    const eventId = dropInfo.event.id; // Проверьте, есть ли у события этот ID
+    const eventId = dropInfo.event.id; 
     const updatedEventData = {
-        title: dropInfo.event.title, // Возможно, вы захотите обновить и название
+        title: dropInfo.event.title, 
         start: dropInfo.event.startStr,
         end: dropInfo.event.endStr
     };
 
     this.calendarService.updateEvent(eventId, updatedEventData).subscribe((response) => {
-        console.log('Event updated successfully:', response); // Убедитесь, что вы получаете ответ
+        console.log('Event updated successfully:', response);
     }, (error) => {
-        console.error('Error updating event:', error); // Обработка ошибок
+        console.error('Error updating event:', error); 
     });
 }
 

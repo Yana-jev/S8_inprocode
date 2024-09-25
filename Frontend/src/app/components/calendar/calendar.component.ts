@@ -7,9 +7,6 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
 
 
-
-
-
 @Component({
   selector: 'calendar',
   standalone: true,
@@ -99,7 +96,7 @@ export class CalendarComponent implements OnInit {
   closeModal() {
     this.isModalOpen = false;
     this.newEventTitle = '';
-    this.eventColor = '#3788d8';
+    this.eventColor 
     this.eventToEdit = null;
   }
 
@@ -116,7 +113,6 @@ export class CalendarComponent implements OnInit {
   }
 
 
-
   handleEventClick(clickInfo: any) {
     this.isModalOpen = true;
     this.newEventTitle = clickInfo.event.title;
@@ -128,13 +124,13 @@ export class CalendarComponent implements OnInit {
 
   deleteEvent() {
     if (this.eventToEdit) {
-      const eventId = this.eventToEdit.id; // Получаем ID события
+      const eventId = this.eventToEdit.id; 
   
       if (confirm(`Are you sure you want to delete: '${this.eventToEdit.title}'?`)) {
         this.calendarService.deleteEvent(eventId).subscribe(() => {
-          this.eventToEdit.remove(); // Удаляем событие из календаря
-          console.log(`Event ${eventId} was deleted`); // Лог для проверки
-          this.closeModal(); // Закрываем модальное окно
+          this.eventToEdit.remove(); 
+          console.log(`Event ${eventId} was deleted`); 
+          this.closeModal(); 
         });
       }
     }

@@ -20,6 +20,7 @@ try {
 }
 };
 
+
 export const deleteEvent = async (req: Request, res: Response) => {
 const { id } = req.params;
 try {
@@ -31,5 +32,33 @@ try {
    res.json({ msg: 'Event deleted' });
 } catch (error) {
    res.status(500).json({ msg: 'Error deleting event', error });
+}
+};
+
+
+export const updateEvent = async (req: Request, res: Response) => {
+const { id } = req.params; 
+const { title, start, end } = req.body; 
+
+try {
+      
+      const event = await CalendarEvent.findByPk(id);
+      if (!event) {
+         return res.status(404).json({ msg: 'Event not found' }); 
+      }
+
+   
+      event.title = title;
+      event.start = start;
+      event.end = end;
+
+      
+      await event.save();
+
+      
+      res.json(event);
+} catch (error) {
+
+      res.status(500).json({ msg: 'Error updating event', error });
 }
 };

@@ -49,7 +49,7 @@ export const updateEvent = async (req: Request, res: Response) => {
          await event.update(body);
          res.json({
             msg: `Event updated successfully`,
-            event  // возвращаем обновленный объект
+            event  
          });
       } else {
          res.status(404).json({
@@ -60,7 +60,7 @@ export const updateEvent = async (req: Request, res: Response) => {
       console.error(error);
       res.status(500).json({
          msg: `An error occurred, please contact support`,
-         error  // добавляем детализированную ошибку в ответ
+         error  
       });
    }
 };

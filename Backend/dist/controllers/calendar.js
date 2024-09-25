@@ -59,7 +59,7 @@ const updateEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             yield event.update(body);
             res.json({
                 msg: `Event updated successfully`,
-                event // возвращаем обновленный объект
+                event
             });
         }
         else {
@@ -72,7 +72,7 @@ const updateEvent = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         console.error(error);
         res.status(500).json({
             msg: `An error occurred, please contact support`,
-            error // добавляем детализированную ошибку в ответ
+            error
         });
     }
 });

@@ -25,7 +25,8 @@ export class CalendarComponent implements OnInit {
     events: [],
     select: this.handleDateSelect.bind(this), 
     eventClick: this.handleEventClick.bind(this),
-    eventDrop: this.handleEventDrop.bind(this)
+    eventDrop: this.handleEventDrop.bind(this),
+  
   };
 
   isModalOpen: boolean = false; 
@@ -35,6 +36,7 @@ export class CalendarComponent implements OnInit {
   eventToDelete: any = null;
   eventColor: string = '#3788d8';
   eventToEdit: any = null;
+  
 
   constructor(private calendarService: CalendarService) {}
 
@@ -45,9 +47,11 @@ export class CalendarComponent implements OnInit {
 
   loadEvents() {
     this.calendarService.getEvents().subscribe((events) => {
+      // Присваиваем полученные с сервера события календарю
       this.calendarOptions.events = events;
     });
   }
+  
 
 
   handleDateSelect(selectInfo: any) {
@@ -67,11 +71,18 @@ export class CalendarComponent implements OnInit {
       backgroundColor: this.eventColor,
       allDay: true
     };
-
+  
     if (this.eventToEdit) {
-      // Обновление существующего события
+      // Обновление существующего события на клиенте
       this.eventToEdit.setProp('title', eventData.title);
       this.eventToEdit.setProp('backgroundColor', eventData.backgroundColor);
+  
+      // Обновление события на сервере
+      this.calendarService.updateEvent(this.eventToEdit.id, eventData).subscribe(() => {
+        console.log('Event updated successfully on the server');
+      }, (error) => {
+        console.error('Error updating event on the server:', error);
+      });
     } else {
       // Добавление нового события
       this.calendarService.addEvent(eventData).subscribe(() => {
@@ -82,17 +93,17 @@ export class CalendarComponent implements OnInit {
           backgroundColor: eventData.backgroundColor,
           allDay: eventData.allDay
         };
-
+  
         this.calendarOptions.events = [
           ...(this.calendarOptions.events as any[]),
           newEvent
         ];
       });
     }
-
+  
     this.closeModal();
   }
-
+  
   closeModal() {
     this.isModalOpen = false;
     this.newEventTitle = '';

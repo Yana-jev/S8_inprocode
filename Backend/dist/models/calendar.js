@@ -16,6 +16,10 @@ const CalendarEvent = connection_1.default.define('CalendarEvent', {
     },
     end: {
         type: sequelize_1.DataTypes.DATE
+    },
+    backgroundColor: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
     }
 }, {
     modelName: 'CalendarEvent',

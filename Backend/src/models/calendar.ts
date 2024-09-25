@@ -15,6 +15,10 @@ start: {
 },
 end: {
    type: DataTypes.DATE
+},
+backgroundColor: {  
+   type: DataTypes.STRING,
+   allowNull: true  
 }},
 {
    modelName: 'CalendarEvent',

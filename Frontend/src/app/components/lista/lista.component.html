@@ -1,0 +1,50 @@
+@if(productos.length === 0){
+
+
+   <div class="container text-center mt-4">
+      <h3>No hay productos</h3>
+   </div>
+} @else {
+
+   @if(loading){
+      <progress-bar></progress-bar>
+   
+   }
+   @if(!loading){
+      <div class="container">
+   
+         <div class="title">
+            <h3>Lista de los productos</h3>
+         </div>
+         <table class="table table-hover">
+         <thead>
+            <tr>
+               <th scope="col">Nombre</th>
+               <th scope="col">Description</th>
+               <th scope="col">Precio</th>
+               <th scope="col">Max. personas</th>
+               <th scope="col"></th>
+            </tr>
+         </thead>
+         <tbody>
+            
+            @for(product of productos; track $index){
+               <tr class="table-active">
+                  <th scope="row"> {{product.name}} </th>
+                  <td> {{product.description}}  </td>
+                  <td>{{product.price | currency:'EUR'}} </td>
+                  <td>{{product.stock}}</td>
+                  <td>
+                     <button type="button" routerLink="/edit/{{product.id}}" class="btn btn-info btn-sm ms-1">Edit</button>
+                     <button (click)="deleteProduct(product.id!)" type="button" class="btn btn-secondary btn-sm">Delete</button>
+                  </td>
+               </tr>
+            }
+            
+            
+         </tbody>
+      </table>
+      <button type="button" class="btn btn-primary" routerLink = "/add" >Agregar producto</button>
+   </div>
+}
+}

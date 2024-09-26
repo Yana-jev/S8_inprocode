@@ -38,21 +38,24 @@ export class MapsComponent implements OnInit {
   }
 
   initializeMap() {
-    this.map = new mapboxgl.Map({
-      container: 'map',
-      style: this.style,
-      zoom: this.zoom,
-      center: [this.lng, this.lat],
-      accessToken: 'pk.eyJ1IjoieWFuYS1qcyIsImEiOiJjbTB3bmkxczkwMzEwMnNzNmR6YzN5dXY5In0.NOogDdPx-b1-wkMBw89YNg'
-    });
-
-    this.map.on('click', (event) => {
-      const coordinates = event.lngLat;
-      this.lat = coordinates.lat;
-      this.lng = coordinates.lng;
-      this.addLocation(coordinates.lat, coordinates.lng);
-    });
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      this.map = new mapboxgl.Map({
+        container: 'map',
+        style: this.style,
+        zoom: this.zoom,
+        center: [this.lng, this.lat],
+        accessToken: 'pk.eyJ1IjoieWFuYS1qcyIsImEiOiJjbTB3bmkxczkwMzEwMnNzNmR6YzN5dXY5In0.NOogDdPx-b1-wkMBw89YNg'
+      });
+  
+      this.map.on('click', (event) => {
+        const coordinates = event.lngLat;
+        this.lat = coordinates.lat;
+        this.lng = coordinates.lng;
+        this.addLocation(coordinates.lat, coordinates.lng);
+      });
+    }
   }
+  
 
   loadLocations() {
     this.locationService.getLocations().subscribe(locations => {

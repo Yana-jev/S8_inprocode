@@ -31,6 +31,7 @@ export class CalendarComponent implements OnInit {
   };
 
   isModalOpen: boolean = false; 
+  isDeleteModalOpen: boolean = false
   newEventTitle: string = ''; 
   selectedStart: string = ''; 
   selectedEnd: string = ''; 
@@ -146,18 +147,27 @@ handleEventClick(clickInfo: any) {
   this.eventToEdit = clickInfo.event;
 }
 
-
-  deleteEvent() {
-    if (this.eventToEdit) {
-      const eventId = this.eventToEdit.id; 
-  
-      if (confirm(`Are you sure you want to delete: '${this.eventToEdit.title}'?`)) {
-        this.calendarService.deleteEvent(eventId).subscribe(() => {
-          this.eventToEdit.remove(); 
-          console.log(`Event ${eventId} was deleted`); 
-          this.closeModal(); 
-        });
-      }
-    }
+openDeleteModal() {
+  this.isDeleteModalOpen = true;
 }
+
+
+closeDeleteModal() {
+  this.isDeleteModalOpen = false;
+}
+
+
+confirmDelete() {
+  if (this.eventToEdit) {
+    const eventId = this.eventToEdit.id; 
+
+    this.calendarService.deleteEvent(eventId).subscribe(() => {
+      this.eventToEdit.remove(); 
+      console.log(`Event ${eventId} was deleted`); 
+      this.closeModal(); 
+      this.closeDeleteModal(); 
+    });
+  }
+}
+
 }

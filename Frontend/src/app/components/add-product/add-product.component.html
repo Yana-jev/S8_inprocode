@@ -10,17 +10,21 @@
             <div class="card-body">
                <div>
                   <form [formGroup]="form" (ngSubmit)="addProduct()">
-                     <input formControlName = 'name' type="text" class="form-control mt-2" placeholder="ingrese nombre">
+                     <label for="nombre">Nombre</label>
+                     <input formControlName = 'name' id="nombre" type="text" class="form-control mt-2" placeholder="ingrese nombre">
                      @if(form.get('name')?.hasError('required') && form.get('name')?.touched){
                         <small>el campo nombre es requerido</small>
                      }
-                     <input formControlName = 'description' type="text" class="form-control mt-2" placeholder="ingrese description">
+                     <label for="description"  class = 'mt-3'>Description</label>
+                     <input formControlName = 'description' id="description" type="text" class="form-control mt-2" placeholder="ingrese description">
                      @if(form.get('description')?.hasError('required') && form.get('description')?.touched){
                      <small>el campo description es requerido</small>}
-                     <input formControlName = 'price' type="number" class="form-control mt-2" placeholder="ingrese precio">
+                     <label for="precio"  class = 'mt-3'>Precio</label>
+                     <input formControlName = 'price' type="number" id="precio" class="form-control mt-2" placeholder="ingrese precio">
                      @if(form.get('price')?.hasError('required') && form.get('price')?.touched){
                      <small>el campo price es requerido</small>}
-                     <input formControlName = 'stock' type="number" class="form-control mt-2" placeholder="maximo de personas">
+                     <label for="maxpersonas"  class = 'mt-3'>Máximo de personas</label>
+                     <input formControlName = 'stock' id="maxpersonas" type="number" class="form-control mt-2" placeholder="máximo de personas">
                      @if(form.get('stock')?.hasError('required') && form.get('stock')?.touched){
                      <small>maximo de personas es requerido</small>}
                      <div class="row mt-2 text-center">

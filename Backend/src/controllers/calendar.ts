@@ -36,8 +36,6 @@ try {
 };
 
 
-
-
 export const updateEvent = async (req: Request, res: Response) => {
    const { body } = req;
    const { id } = req.params;

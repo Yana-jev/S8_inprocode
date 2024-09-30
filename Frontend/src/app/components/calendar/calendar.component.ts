@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarService } from '../../services/calendar.service';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -37,7 +38,11 @@ export class CalendarComponent implements OnInit {
   eventColor: string = '#3788d8';
   eventToEdit: any = null;
   
-
+  private formatDateForInput(date: Date | string): string {
+    const d = new Date(date);
+    return formatDate(d, 'yyyy-MM-dd', 'en-US');
+  }
+  
   constructor(private calendarService: CalendarService) {}
 
   ngOnInit() {
@@ -73,9 +78,12 @@ export class CalendarComponent implements OnInit {
     };
   
     if (this.eventToEdit) {
-  
+
       this.eventToEdit.setProp('title', eventData.title);
       this.eventToEdit.setProp('backgroundColor', eventData.backgroundColor);
+      this.eventToEdit.setStart(this.selectedStart); 
+      this.eventToEdit.setEnd(this.selectedEnd);      
+  
 
       this.calendarService.updateEvent(this.eventToEdit.id, eventData).subscribe(() => {
         console.log('Event updated successfully on the server');
@@ -93,6 +101,7 @@ export class CalendarComponent implements OnInit {
           allDay: eventData.allDay
         };
   
+
         this.calendarOptions.events = [
           ...(this.calendarOptions.events as any[]),
           newEvent
@@ -100,8 +109,9 @@ export class CalendarComponent implements OnInit {
       });
     }
   
-    this.closeModal();
+    this.closeModal(); 
   }
+  
   
   closeModal() {
     this.isModalOpen = false;
@@ -109,6 +119,8 @@ export class CalendarComponent implements OnInit {
     this.eventColor 
     this.eventToEdit = null;
   }
+
+  
 
   handleEventDrop(dropInfo: any) {
     const eventId = dropInfo.event.id; 
@@ -125,14 +137,15 @@ export class CalendarComponent implements OnInit {
     });
 }
 
-  handleEventClick(clickInfo: any) {
-    this.isModalOpen = true;
-    this.newEventTitle = clickInfo.event.title;
-    this.selectedStart = clickInfo.event.startStr;
-    this.selectedEnd = clickInfo.event.endStr;
-    this.eventColor = clickInfo.event.backgroundColor || '#3788d8';
-    this.eventToEdit = clickInfo.event; // Убедитесь, что это событие имеет ID
+handleEventClick(clickInfo: any) {
+  this.isModalOpen = true;
+  this.newEventTitle = clickInfo.event.title;
+  this.selectedStart = clickInfo.event.startStr;
+  this.selectedEnd = clickInfo.event.endStr;
+  this.eventColor = clickInfo.event.backgroundColor || '#3788d8';
+  this.eventToEdit = clickInfo.event;
 }
+
 
   deleteEvent() {
     if (this.eventToEdit) {

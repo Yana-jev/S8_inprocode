@@ -44,7 +44,7 @@ export class MapsComponent implements OnInit {
         style: this.style,
         zoom: this.zoom,
         center: [this.lng, this.lat],
-        accessToken: 'pk.eyJ1IjoieWFuYS1qcyIsImEiOiJjbTB3bmkxczkwMzEwMnNzNmR6YzN5dXY5In0.NOogDdPx-b1-wkMBw89YNg'
+        accessToken: ''
       });
   
       this.map.on('click', (event) => {
